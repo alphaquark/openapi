@@ -178,4 +178,4 @@ def test_aqt_info():
     Aqt.host = None
     response = client.get('/api/aqt/info/circulatingSupply')
     assert response.status_code == 200
-    assert response.json() == {"circulatingSupply": 1234}
+    assert response.json() == 1234
