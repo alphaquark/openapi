@@ -1,4 +1,5 @@
 import redis
+import json
 import fakeredis
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
@@ -60,3 +61,15 @@ def aqt_info():
         return e
     print(results)
     return JSONResponse(content=results, status_code=200)
+
+
+@app.get('/api/aqt/info/circulatingSupply')
+def aqt_circulating_supply():
+    if Aqt.host is None:
+        redisdb = fredis
+    else:
+        redisdb = redis.Redis(host = Aqt.host, port = Aqt.port, db = Aqt.db, decode_responses=True)
+    data = redisdb.hget('USD', 'circulatingSupply')
+    if data is None:
+        raise ValueError("circulatingSupply is None")
+    return JSONResponse(content={"circulatingSupply":int(data)}, status_code=200)
