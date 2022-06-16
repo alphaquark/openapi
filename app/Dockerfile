@@ -4,10 +4,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 ENV PYTHONUNBUFFERED=1
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get -y upgrade && apt-get install -y \
     gcc \
-    python3-dev \
-    vim
+    python3-dev
 
 COPY   requirements.txt .
 RUN    pip install -r requirements.txt
