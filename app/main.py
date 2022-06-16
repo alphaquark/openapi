@@ -72,4 +72,4 @@ def aqt_circulating_supply():
     data = redisdb.hget('USD', 'circulatingSupply')
     if data is None:
         raise ValueError("circulatingSupply is None")
-    return JSONResponse(content={"circulatingSupply":int(data)}, status_code=200)
+    return JSONResponse(int(data), status_code=200)
