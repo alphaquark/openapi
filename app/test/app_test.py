@@ -101,7 +101,7 @@ def store_fake_db():
 
 
 
-def delete_fade_db():
+def delete_fake_db():
     for k in currency:
         fredis.delete(k)
 
@@ -111,9 +111,6 @@ def test_aqt_info():
     client = TestClient(app)
     Aqt.host = None
     response = client.get('/api/aqt/info')
-    print("********************")
-    print(response.text)
-    print("********************")
 
     assert response.status_code == 200
     assert response.json() == [
@@ -173,3 +170,12 @@ def test_aqt_info():
                 "lastUpdatedTimestamp": 1234
             }
         ]
+
+
+def test_aqt_info():
+    store_fake_db()
+    client = TestClient(app)
+    Aqt.host = None
+    response = client.get('/api/aqt/info/circulatingSupply')
+    assert response.status_code == 200
+    assert response.json() == {"circulatingSupply": 1234}
